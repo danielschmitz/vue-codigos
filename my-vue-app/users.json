@@ -1,0 +1,22 @@
+[
+  {
+    "name":"User1",
+    "email":"user1@gmail.com",
+    "country":"USA"
+  },
+  {
+    "name":"User2",
+    "email":"user2@gmail.com",
+    "country":"Mexico"
+  },
+  {
+    "name":"User3",
+    "email":"user3@gmail.com",
+    "country":"France"
+  },
+  {
+    "name":"User4",
+    "email":"user4@gmail.com",
+    "country":"Brazil"
+  }
+]
