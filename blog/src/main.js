@@ -13,6 +13,10 @@ const router = new VueRouter({
     linkActiveClass: 'active'
 })
 
+router.redirect({
+    '/': '/home'
+  })
+
 router.map(Routes)
 
 router.start(App, 'App')

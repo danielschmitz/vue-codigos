@@ -1,8 +1,8 @@
+import Home from './Home.vue'
+
 const Routes = {
-    '/': {
-        component:{
-          template: "<b>root</b>"
-        }
+    '/home': {
+        component: Home          
     },
     '/login':{
         component:{
