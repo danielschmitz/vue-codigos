@@ -16,4 +16,4 @@ export default {
         localStorage.removeItem("userid");
         localStorage.removeItem("token");
     }   
-};
+}
