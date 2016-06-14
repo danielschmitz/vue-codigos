@@ -2,7 +2,6 @@
   <div v-show="showProgress" class="progress">
       <div class="indeterminate"></div>
   </div>
-
   <div class="row" v-for="post in posts">
         <div class="col s12">
           <div class="card  blue lighten-5">
@@ -19,6 +18,7 @@
       </div>
 </template>
 <script>
+  import Auth from './auth.js'
   export default {
     data (){
       return {
@@ -27,6 +27,7 @@
       }
     },
     created: function(){
+      console.log(Auth);
       this.showProgress=true;
       this.$http.get('/api/posts').then(function(response){
           this.showProgress=false

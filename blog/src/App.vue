@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+  
     <nav>
       <div class="nav-wrapper">
         <a href="#" class="brand-logo">Blog</a>
@@ -14,13 +15,15 @@
     <div class="container">
      <router-view></router-view>
   </div>
+  
 </template>
 
 <script>
+
 export default {
   data () {
     return {
-      msg: 'Hello Vue!'
+      msg: 'Hello Vue!'      
     }
   }
 }

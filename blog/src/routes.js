@@ -1,13 +1,12 @@
 import Home from './Home.vue'
+import Login from './Login.vue'
 
 const Routes = {
     '/home': {
         component: Home          
     },
     '/login':{
-        component:{
-          template: "<b>login</b>"
-        }
+        component: Login
     },
     '/logout':{
         component:{
