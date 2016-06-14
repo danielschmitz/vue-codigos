@@ -1,5 +1,7 @@
 import Home from './Home.vue'
 import Login from './Login.vue'
+import AddPost from './AddPost.vue'
+import Logout from './Logout.vue'
 
 const Routes = {
     '/home': {
@@ -9,20 +11,11 @@ const Routes = {
         component: Login
     },
     '/logout':{
-        component:{
-          template: "<b>logout</b>"
-        }
+        component: Logout
     },
     '/addPost':{
-       component:{
-          template: "<b>addPost</b>"
-        }
-    },
-    '/removePost':{
-        component:{
-          template: "<b>removePost</b>"
-        }
-    },
+       component: AddPost
+    }
 }
 
 export default Routes;

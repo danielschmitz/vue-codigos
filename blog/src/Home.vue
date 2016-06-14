@@ -27,7 +27,7 @@
       }
     },
     created: function(){
-      console.log(Auth);
+      //console.log(Auth.getLogin());
       this.showProgress=true;
       this.$http.get('/api/posts').then(function(response){
           this.showProgress=false

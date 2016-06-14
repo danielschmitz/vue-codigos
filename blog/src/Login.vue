@@ -66,9 +66,10 @@ import Auth from "./auth.js"
     }
   },
   created: function(){
-    console.log(Auth);
-    if (Auth.logged()){
-       this.$router.go("/home")
+    let login = Auth.getLogin()
+    console.log(login)
+    if (login.token!=null){
+      this.$router.go('/home');
     }
   },
   methods:{
@@ -77,15 +78,14 @@ import Auth from "./auth.js"
       this.$http.post('/api/login',this.user).then(function(response){
         
         this.showProgress=false
-        Auth.user.name=response.data.user.name;
-        Auth.user._id=response.data.user._id;
-        Auth.token=response.data.token;
-        console.log(Auth)
+      
+        Auth.setLogin(response.data)
+
         this.$router.go("/home")
         
       },function(error){
         this.showProgress=false
-        console.log(error)
+        //console.log(error)
         Materialize.toast('Error: ' + error.data, 3000)
       });
     }

@@ -8,6 +8,7 @@
           <li v-link-active><a v-link="{ path: '/home' }">Home</a></li>
           <li v-link-active><a v-link="{ path: '/login' }">Login</a></li>
           <li v-link-active><a v-link="{ path: '/addPost' }">AddPost</a></li>
+          <li v-link-active><a v-link="{ path: '/logout' }">Logout</a></li>
         </ul>
       </div>
     </nav>
