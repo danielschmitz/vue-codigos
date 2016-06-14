@@ -52,6 +52,6 @@
           Materialize.toast('Error: ' + error.statusText, 3000)
       })
     }
-  }
+   }
   }
 </script>
