@@ -7,12 +7,13 @@ Clique na aba issues e faça uma pergunta
 
 # Roadmap
 
-Ainda estou pensando em implementar estes assuntos no livro, como material extra
+Ideias para futuras implementações:
 
 - [  ] Mixins
 - [  ] Criando Plugins
 - [  ] Vuex
 - [  ] Vue 2
+
 
 
 
