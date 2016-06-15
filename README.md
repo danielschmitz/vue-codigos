@@ -9,10 +9,10 @@ Clique na aba issues e faça uma pergunta
 
 Ainda estou pensando em implementar estes assuntos no livro, como material extra
 
--[ ] Mixins
--[ ] Criando Plugins
--[ ] Vuex
--[ ] Vue 2
+- [  ] Mixins
+- [  ] Criando Plugins
+- [  ] Vuex
+- [  ] Vue 2
 
 
 
