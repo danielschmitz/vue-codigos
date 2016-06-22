@@ -9,7 +9,7 @@
 <script>
 import Display from './Display.vue'
 import Increment from './Increment.vue'
-import Store from './store.js'
+import store from './store.js'
 
 export default {
     components: {
