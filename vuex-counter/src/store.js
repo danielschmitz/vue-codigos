@@ -13,7 +13,10 @@ const mutations = {
     },
     DECREMENT(state){
         state.count--;
-    }
+    },
+    INCREMENTVALUE(state,value){
+        state.count=state.count+value
+    },
 }
 
 export default new Vuex.Store({
