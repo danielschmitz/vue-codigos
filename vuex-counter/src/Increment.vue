@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <button @click="incrementCounter">+1</button>
-    <button @click="decrementCounter">-1</button>
-  </div>
-  <div> 
-      <input type="text" v-model="incrementValue">
-      <button @click="tryIncrementCounterWithValue">increment</button>
-  </div>
+    <div>
+        <button @click="incrementCounter">+1</button>
+        <button @click="decrementCounter">-1</button>
+    </div>
+    <div>
+        <input type="text" v-model="incrementValue">
+        <button @click="tryIncrementCounterWithValue">increment</button>
+    </div>
 </template>
 
 <script>
