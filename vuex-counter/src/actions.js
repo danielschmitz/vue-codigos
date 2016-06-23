@@ -13,6 +13,6 @@ export const incrementCounterWithValue = function ({ dispatch, state }, value) {
     if (isNaN(intValue)) {
         throw "Impossível converter para número inteiro"
     } else {
-        dispatch('INCREMENTVALUE', parseInt(value))
+        dispatch('INCREMENTVALUE', intValue)
     }
 }
