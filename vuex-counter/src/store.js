@@ -4,7 +4,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-    count: 0
+    count: 0,
+    showWaitMessage:false
 }
 
 const mutations = {
@@ -17,6 +18,12 @@ const mutations = {
     INCREMENTVALUE(state,value){
         state.count=state.count+value
     },
+    SHOW_WAIT_MESSAGE(state){
+      state.showWaitMessage = true;
+    },
+    HIDE_WAIT_MESSAGE(state){
+      state.showWaitMessage = false;
+    }
 }
 
 export default new Vuex.Store({

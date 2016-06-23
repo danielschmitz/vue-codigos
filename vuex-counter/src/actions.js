@@ -1,8 +1,9 @@
 
-export const incrementCounter = function ({ dispatch, state },callback) {
+export const incrementCounter = function ({ dispatch, state }) {
+   dispatch('SHOW_WAIT_MESSAGE')
     setTimeout(function(){
-        dispatch('INCREMENT')
-        callback();
+       dispatch('HIDE_WAIT_MESSAGE')
+       dispatch('INCREMENT')
     },2000)
 }
 
