@@ -1,6 +1,9 @@
 
-export const incrementCounter = function ({ dispatch, state }) {
-    dispatch('INCREMENT')
+export const incrementCounter = function ({ dispatch, state },callback) {
+    setTimeout(function(){
+        dispatch('INCREMENT')
+        callback();
+    },2000)
 }
 
 export const decrementCounter = function ({ dispatch, state }) {
