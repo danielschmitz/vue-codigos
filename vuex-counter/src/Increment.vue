@@ -7,14 +7,12 @@
         <input type="text" v-model="incrementValue">
         <button @click="tryIncrementCounterWithValue">increment</button>
     </div>
-    <div v-show="getShowWaitMessage">
-      Aguarde...
-      </div>
+    <please-wait></please-wait>
 </template>
 
 <script>
 import { incrementCounter, decrementCounter, incrementCounterWithValue  } from './actions'
-import {getShowWaitMessage} from './getters'
+import PleaseWait from './PleaseWait.vue'
 
 export default {
     vuex: {
@@ -22,10 +20,10 @@ export default {
             incrementCounter,
             decrementCounter,
             incrementCounterWithValue
-        },
-        getters: {
-          getShowWaitMessage
         }
+    },
+    components:{
+      PleaseWait
     },
     data () {
         return{
