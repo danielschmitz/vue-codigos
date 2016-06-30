@@ -1,5 +1,5 @@
 
-export function setProducts({dispatch}){
+export function loadProducts({dispatch}){
     this.$http.get("/products.json").then(
         (response)=>{
            dispatch("SETPRODUCTS",JSON.parse(response.data))

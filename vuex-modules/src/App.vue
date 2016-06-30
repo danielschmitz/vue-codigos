@@ -4,7 +4,7 @@
     <div v-show="isLogged">
         <button  @click="doLogout"> Logout</button>
         <button  > Users</button>
-        <button  @click="setProducts">Products</button>
+        <button  @click="loadProducts">Products</button>
         <button  > Suppliers</button>
 
         <br>
@@ -36,7 +36,7 @@
 <script>
 import store from './store'
 import {doLogin,doLogout} from './modules/login/actions'
-import {setProducts} from './modules/product/actions'
+import {loadProducts} from './modules/product/actions'
 import {isLogged} from './modules/login/getters'
 import {hasProducts,getProducts} from './modules/product/getters'
 
@@ -49,7 +49,7 @@ export default {
   vuex :{
       actions :{
           doLogin,doLogout,
-          setProducts
+          loadProducts
       },
       getters : {
           isLogged,
