@@ -11,7 +11,7 @@ Ideias para futuras implementações:
 
 - [ ] Mixins
 - [ ] Criando Plugins
-- [ ] Vuex
+- [x] Vuex
 - [ ] Vue 2
 
 
