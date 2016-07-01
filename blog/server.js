@@ -1,12 +1,12 @@
-var express = require('express');       
-var app = express();                 
+var express = require('express');
+var app = express();
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 
 //secret key (use any big text)
-var secretKey = "MySuperSecretKey"; 
+var secretKey = "MySuperSecretKey";
 
-//Database in the cloud 
+//Database in the cloud
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://admin:123456@ds043972.mongolab.com:43972/blog', function (err) {
     if (err) { console.error("error! " + err) }
@@ -26,14 +26,14 @@ app.use('/', express.static(__dirname+'/'));
 
 //middleware: run in all requests
 router.use(function (req, res, next) {
-    console.warn(req.method + " " + req.url + 
+    console.warn(req.method + " " + req.url +
                    " with " + JSON.stringify(req.body));
     next();
 });
 
 //middleware: auth
 var auth = function (req, res, next) {
-    var token = req.body.token || req.query.token 
+    var token = req.body.token || req.query.token
                       || req.headers['x-access-token'];
     if (token) {
         jwt.verify(token, secretKey, function (err, decoded) {
@@ -105,7 +105,7 @@ router.route('/users')
                 }
             });
     } else {
-        User.findOne({ login: req.body.login, 
+        User.findOne({ login: req.body.login,
                 password: req.body.password }, 'name')
             .exec(function (err, user) {
                 if (err) res.send(err);
