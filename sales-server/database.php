@@ -4,7 +4,7 @@ function DB()
     $dbhost = "localhost";
     $dbuser = "root";
     $dbpass = "";
-    $dbname = "school";
+    $dbname = "sales";
 
     $mysql_conn_string = "mysql:host=$dbhost;dbname=$dbname";
     $dbConnection = new PDO($mysql_conn_string, $dbuser, $dbpass);
