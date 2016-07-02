@@ -4,5 +4,5 @@ export function getLogin(state){
 }
 
 export function isLogged(state){
-    return state.login.token!=""
+    return state.login.token!=null
 }

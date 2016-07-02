@@ -1,30 +1,37 @@
 <template>
   <div id="app">
-    <Login></Login>
+    <Login v-if="!isLogged"></Login>
+    <Admin v-else></admin>
   </div>
 </template>
 
 <script>
 
 import store from './vuex/store'
+import {isLogged} from './vuex/getters'
+
 import Login from './components/Login.vue'
+import Admin from './components/Admin.vue'
 
 export default {
-    components: {
-        Login
+   components: {
+        Login, Admin
    },
   data () {
     return {
       msg: 'Hello Vue!'
     }
   },
-  store
+  store,
+  vuex:{
+      getters:  {
+          isLogged
+      }
+  }
 }
 </script>
 <style>
-    body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #ded!important;
+body {
+  background-color: #eee;
 }
 </style>
