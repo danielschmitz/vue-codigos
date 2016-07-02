@@ -51,6 +51,16 @@ class DB {
     public static function prepare($sql) {
         return self::getConn()->prepare($sql);
     }
+
+     /**
+     * Executa uma query na sql
+     * @param String $sql
+     * @return PDOStatement stmt
+     */
+    public static function query($sql) {
+        return self::getConn()->query($sql);
+    }
+
     /**
      * Retorna o id da última consulta INSERT 
      * @return int
