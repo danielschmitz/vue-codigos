@@ -16,11 +16,11 @@ $app->post('/login', function (Request $request, Response $response) {
 		}
 
 		if ($user->create_account){
-//Criar a conta do usuário
+			//Criar a conta do usuário
 			if (empty($user->name)){
 				throw new \Exception("Name empty...");
 			}
-//Verifica se o email já está cadastrado
+			//Verifica se o email já está cadastrado
 			$sql = "SELECT id FROM users WHERE email=:email";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam("email",$user->email);
@@ -41,8 +41,9 @@ $app->post('/login', function (Request $request, Response $response) {
 				$stmt->bindParam(':isCustomer', $isCustomer,PDO::PARAM_INT);
 				$stmt->execute();
 
+
 				$user->id = DB::lastInsertId();
-                $user->password = "";
+				$user->password = "";
 
 				$response->withJson($user);
 
@@ -52,7 +53,22 @@ $app->post('/login', function (Request $request, Response $response) {
 
 		}
 		else{
-//Tenta logar
+			//Tenta logar
+			$password = md5($user->password);
+			$sql = "SELECT * FROM users WHERE email=:email and password=:password";
+			$stmt = DB::prepare($sql);
+			$stmt->bindParam("email",$user->email);
+			$stmt->bindParam("password",$password);
+			$stmt->execute();
+
+			if ($stmt->rowCount()==0){
+				throw new \Exception("Email oe password not found.");
+			}else{
+				$db_user = $stmt->fetch();
+				$response->withJson($db_user);
+			}
+
+
 		}
 
 	}
