@@ -1,10 +1,10 @@
 <?php
-function getDB()
+function DB()
 {
     $dbhost = "localhost";
     $dbuser = "root";
     $dbpass = "";
-    $dbname = "sales";
+    $dbname = "school";
 
     $mysql_conn_string = "mysql:host=$dbhost;dbname=$dbname";
     $dbConnection = new PDO($mysql_conn_string, $dbuser, $dbpass);
