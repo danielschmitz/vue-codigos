@@ -1,6 +1,16 @@
 
-
-$stmt = getDB()->prepare("INSERT INTO REGISTRY (name, value) VALUES (:name, :value)");
+//insert
+$stmt = DB::prepare("INSERT INTO REGISTRY (name, value) VALUES (:name, :value)");
 $stmt->bindParam(':name', $name);
 $stmt->bindParam(':value', $value);
 $stmt->execute();
+
+
+//verify
+$sql = "SELECT id FROM users WHERE email=:email";
+$stmt = DB::prepare($sql);
+$stmt->bindParam(":email",$user->email);
+if ($stmt->fetch()==false){
+
+}
+

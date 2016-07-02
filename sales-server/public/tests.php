@@ -9,7 +9,7 @@ $app->get('/', function (Request $request, Response $response) {
 
 $app->get('/users', function (Request $request, Response $response) {
 
-    $stmt =  DB()->prepare("SELECT * from users");
+    $stmt =  DB::prepare("SELECT * from users");
     $stmt->execute();
     return $response->withJson($stmt->fetchAll());
 
@@ -17,7 +17,7 @@ $app->get('/users', function (Request $request, Response $response) {
 
 $app->get('/databases', function (Request $request, Response $response) {
 
-    $dbs = DB()->query( 'SHOW DATABASES' );
+    $dbs = DB::query( 'SHOW DATABASES' );
     while( ( $db = $dbs->fetchColumn( 0 ) ) !== false )
     {
         $response->getBody()->write($db . ", ");
