@@ -9,9 +9,10 @@ Clique na aba issues e faça uma pergunta
 
 Ideias para futuras implementações:
 
-- [ ] Mixins
-- [ ] Criando Plugins
+- [x] Mixins
+- [x] Criando Plugins
 - [x] Vuex
+- [ ] Criando um sistema de vendas com Vue e Php + Slim Framework
 - [ ] Vue 2
 
 
