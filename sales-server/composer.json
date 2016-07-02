@@ -1,6 +1,6 @@
 {
     "require": {
         "slim/slim": "^3.0",
-        "slim/pdo": "~1.9"
+        "palanik/corsslim": "dev-slim3"
     }
 }
