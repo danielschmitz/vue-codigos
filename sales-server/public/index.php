@@ -1,19 +1,21 @@
 <?php
 require '../vendor/autoload.php';
-require '../database.php';
 
-$app = new \Slim\App;
+require '../config.php';
+require '../DB.php';
+
+$app = new \Slim\App();
 
 $corsOptions = array(
-    "origin" => "*",
-    "exposeHeaders" => array("Content-Type", "X-Requested-With", "X-authentication", "X-client"),
-    "allowMethods" => array('GET', 'POST', 'PUT', 'DELETE', 'OPTIONS')
-);
+ "origin" => "*",
+ "exposeHeaders" => array("Content-Type", "X-Requested-With", "X-authentication", "X-client"),
+ "allowMethods" => array('GET', 'POST', 'PUT', 'DELETE', 'OPTIONS')
+ );
 $cors = new \CorsSlim\CorsSlim($corsOptions);
 $app->add($cors);
 
 require 'tests.php';
-require 'user.php';
+require 'login.php';
 //require 'employee.php'
 //require 'customer.php'
 //require 'sales.php'
