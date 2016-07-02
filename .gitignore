@@ -42,3 +42,5 @@ composer.lock
 
 #mysql backup
 .bak
+
+*.db
