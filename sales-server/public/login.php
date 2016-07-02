@@ -45,6 +45,9 @@ $app->post('/login', function (Request $request, Response $response) {
 				$user->id = DB::lastInsertId();
 				$user->password = "";
 
+				//Token Fake
+				$user->token = "12345566788990865";
+
 				$response->withJson($user);
 
 			}else{
@@ -66,6 +69,8 @@ $app->post('/login', function (Request $request, Response $response) {
 			}else{
 				$db_user = $stmt->fetch();
 				$db_user->password = "";
+				//Token Fake
+				$user->token = "12345566788990865";
 				return $response->withJson($db_user);
 			}
 		}
