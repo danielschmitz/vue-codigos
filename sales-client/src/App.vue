@@ -10,9 +10,9 @@ import store from './vuex/store'
 import Login from './components/Login.vue'
 
 export default {
-    components{
+    components: {
         Login
-    },
+   },
   data () {
     return {
       msg: 'Hello Vue!'
@@ -21,3 +21,10 @@ export default {
   store
 }
 </script>
+<style>
+    body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #ded!important;
+}
+</style>
