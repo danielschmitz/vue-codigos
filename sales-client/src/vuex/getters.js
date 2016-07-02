@@ -10,3 +10,11 @@ export function isLogged(state){
 export function isLoading(state){
   return state.loading
 }
+
+export function hasError(state){
+  return state.error.message!="";
+}
+
+export function getError(state){
+  return state.error.message;
+}

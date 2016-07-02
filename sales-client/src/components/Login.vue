@@ -64,9 +64,11 @@
 					:disabled="!$validation.valid||isLoading">
 					Ir</button>
 
+					<br/>
+
 					<loading></loading>
 
-					<br/>
+					<error></error>
 
 					<div  class="alert alert-danger"
 					v-show="$validation.email.touched&&$validation.email.minlength">
@@ -88,11 +90,12 @@
 <script>
 	import {setLogin} from '../vuex/actions'
 	import Loading from '../controls/Loading.vue'
+	import Error from '../controls/Error.vue'
 	import {isLoading} from '../vuex/getters'
 
 	export default{
 		components: {
-			Loading
+			Loading, Error
 		},
 		data() {
 			return{

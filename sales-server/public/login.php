@@ -62,15 +62,13 @@ $app->post('/login', function (Request $request, Response $response) {
 			$stmt->execute();
 
 			if ($stmt->rowCount()==0){
-				throw new \Exception("Email oe password not found.");
+				throw new \Exception("Email and password not found.");
 			}else{
 				$db_user = $stmt->fetch();
-				$response->withJson($db_user);
+				$db_user->password = "";
+				return $response->withJson($db_user);
 			}
-
-
 		}
-
 	}
 	catch(\Exception $e){
 		return $response->withStatus(500)->write($e->getMessage());

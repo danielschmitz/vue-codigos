@@ -11,7 +11,8 @@
     "build": "cross-env NODE_ENV=production browserify src/main.js | uglifyjs -c warnings=false -m > dist/build.js"
   },
   "dependencies": {
-    "jquery": "^3.0.0",
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.0",
     "moment": "^2.13.0",
     "vue": "^1.0.0",
     "vue-resource": "^0.9.3",

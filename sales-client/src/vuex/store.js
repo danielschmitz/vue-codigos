@@ -5,22 +5,34 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        error: {
+            message:""
+        },
         loading:false,
         login: {
-        name: null,
-        email: null,
-        token: null
+            name: null,
+            email: null,
+            token: null
         }
     },
     mutations: {
         SET_LOGIN (store, login) {
-        store.login = login
+            store.login = login
         },
         SHOW_LOADING (store) {
-        store.loading=true;
+            store.loading=true;
         },
         HIDE_LOADING (store) {
-        store.loading=false;
+            store.loading=false;
         },
+        SHOW_ERROR (store,msg) {
+            store.error.message=msg;
+             setTimeout(function(){
+               store.error.message=""
+              },5000)
+        },
+        HIDE_ERROR (store) {
+            store.error.message="";
+        }
     }
 })
