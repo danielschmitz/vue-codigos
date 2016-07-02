@@ -1,6 +1,7 @@
 {
   "name": "sales-client",
   "description": "A sales client project",
+  "version": "1.0.0",
   "author": "Daniel Schmitz <danieljfa@gmail.com>",
   "private": true,
   "scripts": {
@@ -10,7 +11,13 @@
     "build": "cross-env NODE_ENV=production browserify src/main.js | uglifyjs -c warnings=false -m > dist/build.js"
   },
   "dependencies": {
-    "vue": "^1.0.0"
+    "jquery": "^3.0.0",
+    "moment": "^2.13.0",
+    "vue": "^1.0.0",
+    "vue-resource": "^0.9.3",
+    "vue-router": "^0.7.13",
+    "vue-strap": "^1.0.11",
+    "vuex": "^1.0.0-rc"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

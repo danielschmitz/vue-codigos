@@ -1,25 +1,23 @@
 <template>
   <div id="app">
-    <h1>{{ msg }}</h1>
+    <Login></Login>
   </div>
 </template>
 
 <script>
+
+import store from './vuex/store'
+import Login from './components/Login.vue'
+
 export default {
+    components{
+        Login
+    },
   data () {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
       msg: 'Hello Vue!'
     }
-  }
+  },
+  store
 }
 </script>
-
-<style>
-body {
-  font-family: Helvetica, sans-serif;
-}
-</style>
