@@ -1,5 +1,5 @@
 <template>
-  <div class="alert alert-danger fade in"
+  <div class="alert alert-danger"
   v-show="hasError">
   {{getError}}</div>
 </template>
