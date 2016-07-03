@@ -70,7 +70,7 @@ $app->post('/login', function (Request $request, Response $response) {
 				$db_user = $stmt->fetch();
 				$db_user->password = "";
 				//Token Fake
-				$user->token = "12345566788990865";
+				$db_user->token = "12345566788990865";
 				return $response->withJson($db_user);
 			}
 		}

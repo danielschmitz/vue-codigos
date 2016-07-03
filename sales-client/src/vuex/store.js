@@ -26,7 +26,7 @@ export default new Vuex.Store({
             store.loading=false;
         },
         SHOW_ERROR (store,msg) {
-            store.error.message=msg;
+            store.error.message=msg||"Network error";
              setTimeout(function(){
                store.error.message=""
               },5000)

@@ -6,6 +6,7 @@ export function setLogin({dispatch},user){
   this.$http.post(`${URL}/login`,user).then(
     (response)=>{
       dispatch("HIDE_LOADING")
+      console.log("setLogin",response.data)
       dispatch("SET_LOGIN",response.data)
     },
     (error)=>{
