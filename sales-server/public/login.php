@@ -46,9 +46,19 @@ $app->post('/login', function (Request $request, Response $response) {
 				$user->password = "";
 
 				//Token Fake
-				$user->token = "12345566788990865";
+				//$user->token = "12345566788990865";
 
-				$response->withJson($user);
+                 $token_data = array(
+                "user_id" => $user->id
+                );
+
+                $user->token =  \Firebase\JWT\JWT::encode(
+                    $token_data,
+                    base64_decode(SECRECT_KEY),
+                    'HS256'
+                );
+
+				return $response->withJson($user);
 
 			}else{
 				throw new \Exception("Email exists in database");
@@ -69,8 +79,20 @@ $app->post('/login', function (Request $request, Response $response) {
 			}else{
 				$db_user = $stmt->fetch();
 				$db_user->password = "";
-				//Token Fake
-				$db_user->token = "12345566788990865";
+
+                //Token Fake
+				//$db_user->token = "12345566788990865";
+
+                $token_data = array(
+                "user_id" => $db_user->id
+                );
+
+                $db_user->token =  \Firebase\JWT\JWT::encode(
+                    $token_data,
+                    base64_decode(SECRECT_KEY),
+                    'HS256'
+                );
+
 				return $response->withJson($db_user);
 			}
 		}

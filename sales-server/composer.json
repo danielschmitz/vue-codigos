@@ -1,6 +1,7 @@
 {
     "require": {
         "slim/slim": "^3.0",
-        "palanik/corsslim": "dev-slim3"
-    }
+        "palanik/corsslim": "dev-slim3",
+        "firebase/php-jwt": "dev-master"
+         }
 }
