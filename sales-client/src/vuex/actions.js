@@ -32,4 +32,34 @@ export function clearError({dispatch}) {
     dispatch("HIDE_ERROR");
 }
 
+export function setCategory({dispatch}, category) {
+    dispatch("SET_CATEGORY", category);
+}
+
+export function saveCategory({dispatch,state}) {
+    dispatch("SHOW_LOADING")
+
+    this.$http.post(`${URL}/category`,state.category.selected).then(
+        result=>{
+               dispatch("SET_CATEGORY",result.json())
+               loadCategories({dispatch:dispatch,state:state})
+        },
+        error=>{
+            dispatch("SHOW_ERROR", error.body)
+        }
+    ).finally(function(){
+        dispatch("HIDE_LOADING")
+    })
+
+}
+
+export function loadCategories({dispatch, state}) {
+    dispatch('SHOW_LOADING')
+    let start = (state.category.page * state.itens_per_page) - (state.itens_per_page - 1);
+}
+
+
+
+
+
 

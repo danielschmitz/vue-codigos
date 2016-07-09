@@ -37,7 +37,7 @@ require 'login.php';
 //require 'employee.php'
 //require 'customer.php'
 //require 'sales.php'
-//require 'category.php'
+require 'category.php';
 //require 'supplier.php'
 //require 'product.php'
 

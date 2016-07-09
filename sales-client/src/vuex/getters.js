@@ -18,3 +18,7 @@ export function hasError(state){
 export function getError(state){
   return state.error.message;
 }
+
+export function getCategory(state){
+    return state.category.selected;
+}
