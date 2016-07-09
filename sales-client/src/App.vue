@@ -9,6 +9,7 @@
 
 import store from './vuex/store'
 import {isLogged} from './vuex/getters'
+import {setLoginFromLocalStorage} from './vuex/actions'
 
 import Login from './components/Login.vue'
 import Admin from './components/Admin.vue'
@@ -26,7 +27,13 @@ export default {
   vuex:{
       getters:  {
           isLogged
+      },
+      actions: {
+          setLoginFromLocalStorage
       }
+  },
+  created(){
+      this.setLoginFromLocalStorage();
   }
 }
 </script>

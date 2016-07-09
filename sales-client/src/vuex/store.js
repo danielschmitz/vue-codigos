@@ -18,6 +18,7 @@ export default new Vuex.Store({
     mutations: {
         SET_LOGIN (store, login) {
             store.login = login
+            localStorage.setItem("login",JSON.stringify(store.login));
         },
         SHOW_LOADING (store) {
             store.loading=true;
