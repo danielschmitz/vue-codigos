@@ -1,4 +1,4 @@
-<template>Usuários</template>
+<template>Categorias</template>
 <script>export default{
 
 }</script>

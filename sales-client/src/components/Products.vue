@@ -1,4 +1,4 @@
-<template>Usuários</template>
+<template>Produtos</template>
 <script>export default{
 
 }</script>

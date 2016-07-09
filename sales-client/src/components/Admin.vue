@@ -18,12 +18,12 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li v-link-active><a v-link="{ path: '/users' }">Usuários</a></li>
-                    <li><a href="#">Fornecedores</a></li>
-                    <li><a href="#">Categorias</a></li>
-                    <li><a href="#">Produtos</a></li>
-                    <li><a href="#">Vendas</a></li>
-                    <li><a href="#">PDV</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li v-link-active><a v-link="{ path: '/suppliers' }">Fornecedores</a></li>
+                    <li v-link-active><a v-link="{ path: '/categories' }">Categorias</a></li>
+                    <li v-link-active><a v-link="{ path: '/products' }">Produtos</a></li>
+                    <li v-link-active><a v-link="{ path: '/sales' }">Vendas</a></li>
+                    <li v-link-active><a v-link="{ path: '/pdv' }">PDV</a></li>
+                    <li v-link-active><a v-link="{ path: '/logout' }">Logout</a></li>
                     <!--
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown1 <span class="caret"></span></a>

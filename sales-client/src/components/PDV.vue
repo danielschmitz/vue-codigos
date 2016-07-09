@@ -1,4 +1,4 @@
-<template>Usuários</template>
+<template>PDV</template>
 <script>export default{
 
 }</script>

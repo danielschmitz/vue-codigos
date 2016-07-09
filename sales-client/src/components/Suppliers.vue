@@ -1,4 +1,4 @@
-<template>Usuários</template>
+<template>Fornecedores</template>
 <script>export default{
 
 }</script>
