@@ -14,3 +14,9 @@ if ($stmt->fetch()==false){
 
 }
 
+//list all
+$sql = "SELECT id,name FROM categories";
+$stmt = DB::prepare($sql);
+$stmt->execute();
+return  $response->withJson($stmt->fetchAll());
+

@@ -2,7 +2,15 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+$app->get('/categories', function (Request $request, Response $response) {
 
+		$sql = "SELECT id,name FROM categories";
+        $stmt = DB::prepare($sql);
+        $stmt->execute();
+
+        return  $response->withJson($stmt->fetchAll());
+
+});
 
 $app->post('/category', function (Request $request, Response $response) {
 
