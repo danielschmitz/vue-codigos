@@ -18,6 +18,7 @@ export default new Vuex.Store({
         category: {
             list: [],
             selected: {},
+            total: 1,
             page: 1
         }
     },
@@ -46,6 +47,9 @@ export default new Vuex.Store({
         },
         SET_CATEGORY(store, category) {
             store.category.selected = category;
+        },
+        SET_TOTAL_CATEGORIES(store, total) {
+            store.category.total = total;
         },
         SET_PAGE_CATEGORY(store, page) {
             store.category.page = page;

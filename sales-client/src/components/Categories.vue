@@ -4,7 +4,7 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-xs-6">
-                    <h4>Categorias</h4>
+                    <h4>Categorias <small>({{getTotalCategories}})</small></h4>
                 </div>
                 <div class="col-xs-6">
                     <button @click.prevent="newCategory" class="btn btn-default pull-right">Novo</button>
@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="category in categories">
+                            <tr v-for="category in getCategories">
                                 <td>{{category.id}}</td>
                                 <td>{{category.name}}</td>
                             </tr>
@@ -50,8 +50,8 @@
  </div>
 </template>
 <script>
-import {setCategory,saveCategory} from '../vuex/actions.js'
-import {getCategory,isLoading} from '../vuex/getters.js'
+import {setCategory,saveCategory,loadCategories} from '../vuex/actions.js'
+import {getCategory,getCategories,getTotalCategories,isLoading} from '../vuex/getters.js'
 import Loading from '../controls/Loading.vue'
 import Error from '../controls/Error.vue'
 
@@ -61,11 +61,14 @@ export default{
 		},
     vuex:{
         actions:{
-            setCategory,saveCategory
+            setCategory,saveCategory,loadCategories
         },
         getters:{
-            getCategory,isLoading
+            getCategory,isLoading,getCategories,getTotalCategories
         }
+    },
+    created(){
+        this.loadCategories();
     },
     methods:{
         newCategory(){

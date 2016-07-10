@@ -22,3 +22,11 @@ export function getError(state){
 export function getCategory(state){
     return state.category.selected;
 }
+
+export function getCategories(state){
+    return state.category.list;
+}
+
+export function getTotalCategories(state){
+    return state.category.total;
+}

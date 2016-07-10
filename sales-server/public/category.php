@@ -4,11 +4,36 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->get('/categories', function (Request $request, Response $response) {
 
-		$sql = "SELECT id,name FROM categories";
-        $stmt = DB::prepare($sql);
-        $stmt->execute();
+        $sql = "";
+        $parameters = $request->getQueryParams();
+        $start =(int)$parameters['start'];
+        $limit =(int)$parameters['limit'];
 
-        return  $response->withJson($stmt->fetchAll());
+
+        if (!empty($start)&&!empty($limit)){
+            $start--;
+            $sql = "SELECT id,name FROM categories LIMIT :start,:limit";
+            $stmt = DB::prepare($sql);
+            $stmt->bindParam(':start', $start,PDO::PARAM_INT);
+            $stmt->bindParam(':limit', $limit,PDO::PARAM_INT);
+            $stmt->execute();
+
+            $sqlCount =  "SELECT count(id) FROM categories";
+            $stmtCount = DB::prepare($sqlCount);
+            $stmtCount->execute();
+            $total = $stmtCount->fetchColumn();
+
+             return  $response->withJson($stmt->fetchAll())->withHeader('Access-Control-Expose-Headers','x-total-count')->withHeader('x-total-count', $total);
+
+        }else{
+            $sql = "SELECT id,name FROM categories";
+            $stmt = DB::prepare($sql);
+            $stmt->execute();
+
+            return  $response->withJson($stmt->fetchAll());
+        }
+
+
 
 });
 

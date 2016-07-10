@@ -4,7 +4,11 @@ require '../vendor/autoload.php';
 require '../config.php';
 require '../DB.php';
 
-$app = new \Slim\App();
+$app = new \Slim\App([
+    'settings' => [
+        'displayErrorDetails' => true
+    ]
+]);
 
 //Auth Middleware
 $auth = function ($request, $response, $next) {

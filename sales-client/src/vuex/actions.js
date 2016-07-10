@@ -40,9 +40,28 @@ export function saveCategory({dispatch,state}) {
     dispatch("SHOW_LOADING")
 
     this.$http.post(`${URL}/category`,state.category.selected).then(
-        result=>{
-               dispatch("SET_CATEGORY",result.json())
-               loadCategories({dispatch:dispatch,state:state})
+        response=>{
+               dispatch("SET_CATEGORY",response.json())
+        },
+        error=>{
+            dispatch("SHOW_ERROR", error.body)
+        }
+    ).finally(function(){
+        dispatch("HIDE_LOADING")
+        this.loadCategories();
+    })
+
+}
+
+export function loadCategories({dispatch, state}) {
+    dispatch('SHOW_LOADING')
+
+    let start = (state.category.page * state.itens_per_page) - (state.itens_per_page - 1);
+
+    this.$http.get(`${URL}/categories?start=${start}&limit=${state.itens_per_page}`).then(
+        response=>{
+            dispatch("SET_CATEGORIES",response.json())
+            dispatch('SET_TOTAL_CATEGORIES',response.headers['x-total-count']);
         },
         error=>{
             dispatch("SHOW_ERROR", error.body)
@@ -51,11 +70,7 @@ export function saveCategory({dispatch,state}) {
         dispatch("HIDE_LOADING")
     })
 
-}
 
-export function loadCategories({dispatch, state}) {
-    dispatch('SHOW_LOADING')
-    let start = (state.category.page * state.itens_per_page) - (state.itens_per_page - 1);
 }
 
 
