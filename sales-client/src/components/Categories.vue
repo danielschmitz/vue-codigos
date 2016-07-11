@@ -24,7 +24,7 @@
                         <tbody>
                             <tr v-for="category in getCategories">
                                 <td>{{category.id}}</td>
-                                <td>{{category.name}}</td>
+                                <td><a @click.prevent="tryEdit(category)">{{category.name}}</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -76,6 +76,9 @@ export default{
         },
         trySaveCategory(){
             this.saveCategory();
+        },
+        tryEdit(category){
+             this.setCategory(category);
         }
     }
 
