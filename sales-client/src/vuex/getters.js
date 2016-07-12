@@ -30,3 +30,11 @@ export function getCategories(state){
 export function getTotalCategories(state){
     return state.category.total;
 }
+
+export function getCategoryPage(state){
+    return state.category.page;
+}
+
+export function getItensPerPage(state){
+    return state. itens_per_page
+}

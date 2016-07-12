@@ -69,8 +69,11 @@ export function loadCategories({dispatch, state}) {
     ).finally(function(){
         dispatch("HIDE_LOADING")
     })
+}
 
-
+export function changeCategoriesPage({dispatch, state},page) {
+      dispatch('SET_CATEGORY_PAGE',page)
+      this.loadCategories()
 }
 
 

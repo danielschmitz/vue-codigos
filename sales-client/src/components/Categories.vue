@@ -14,7 +14,13 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-6">
-                    <table class="table table-bordered">
+
+                      <div class="form-group">
+                            <label for="name">Busca:</label>
+                            <input type="input" class="form-control" id="id" placeholder="digite e aguarde" v-model="search" debounce="1000">
+                        </div>
+                        {{search}}
+                    <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -22,19 +28,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="category in getCategories">
+                            <tr v-for="category in getCategories" >
                                 <td>{{category.id}}</td>
-                                <td><a @click.prevent="tryEdit(category)">{{category.name}}</a></td>
+                                <td role="button" @click.prevent="tryEdit(category)"><a>{{category.name}}</a></td>
                             </tr>
                         </tbody>
                     </table>
+
+                    <div class="text-center">
+                        <Pagination :total="getTotalCategories" :itens-per-page="getItensPerPage" :page="getCategoryPage" @change-page="onChangePage"></Pagination>
+                    </div>
+
                 </div>
                 <div class="col-md-6">
                     <Error></Error>
                     <form>
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="name">Id</label>
-                            <input type="input" class="form-control" id="id" placeholder="id" v-model="getCategory.id" readonly >
+                            <input type="input" class="form-control" id="id" placeholder="id" v-model="getCategory.id" readonly>
                         </div>
                         <div class="form-group">
                             <label for="name">Nome</label>
@@ -47,28 +58,34 @@
             </div>
         </div>
     </div>
- </div>
+    </div>
 </template>
 <script>
-import {setCategory,saveCategory,loadCategories} from '../vuex/actions.js'
-import {getCategory,getCategories,getTotalCategories,isLoading} from '../vuex/getters.js'
+import {setCategory,saveCategory,loadCategories,changeCategoriesPage} from '../vuex/actions.js'
+import {getCategory,getCategories,getTotalCategories,isLoading,getCategoryPage,getItensPerPage} from '../vuex/getters.js'
 import Loading from '../controls/Loading.vue'
 import Error from '../controls/Error.vue'
+import Pagination from '../controls/Pagination.vue'
 
 export default{
     components: {
-			Loading, Error
+			Loading, Error,Pagination
 		},
     vuex:{
         actions:{
-            setCategory,saveCategory,loadCategories
+            setCategory,saveCategory,loadCategories,changeCategoriesPage
         },
         getters:{
-            getCategory,isLoading,getCategories,getTotalCategories
+            getCategory,isLoading,getCategories,getTotalCategories,getCategoryPage,getItensPerPage
         }
     },
     created(){
         this.loadCategories();
+    },
+    data(){
+        return{
+            search:""
+        }
     },
     methods:{
         newCategory(){
@@ -79,6 +96,9 @@ export default{
         },
         tryEdit(category){
              this.setCategory(category);
+        },
+        onChangePage: function(page){
+          this.changeCategoriesPage(page)
         }
     }
 

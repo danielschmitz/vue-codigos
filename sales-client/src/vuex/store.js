@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        itens_per_page: 10,
+        itens_per_page: 5,
         error: {
             message: ""
         },
@@ -47,6 +47,9 @@ export default new Vuex.Store({
         },
         SET_CATEGORY(store, category) {
             store.category.selected = category;
+        },
+        SET_CATEGORY_PAGE(store, page) {
+            store.category.page = page;
         },
         SET_TOTAL_CATEGORIES(store, total) {
             store.category.total = total;
