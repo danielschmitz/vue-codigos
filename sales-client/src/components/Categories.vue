@@ -15,11 +15,13 @@
             <div class="row">
                 <div class="col-md-6">
 
-                      <div class="form-group">
-                            <label for="name">Busca:</label>
-                            <input type="input" class="form-control" id="id" placeholder="digite e aguarde" v-model="search" debounce="1000">
-                        </div>
-                        {{search}}
+
+                    <div class="form-group form-inline">
+                        <input type="input"  class="form-control" id="keyword" name="keyword" placeholder="Buscar por nome" v-model="keyword">
+                        <button @click.prevent="trySearch" class="btn btn-default">Buscar</button>
+                    </div>
+
+
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -28,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="category in getCategories" >
+                            <tr v-for="category in getCategories">
                                 <td>{{category.id}}</td>
                                 <td role="button" @click.prevent="tryEdit(category)"><a>{{category.name}}</a></td>
                             </tr>
@@ -80,11 +82,11 @@ export default{
         }
     },
     created(){
-        this.loadCategories();
+        this.loadCategories(this.keyword);
     },
     data(){
         return{
-            search:""
+            keyword:""
         }
     },
     methods:{
@@ -97,8 +99,11 @@ export default{
         tryEdit(category){
              this.setCategory(category);
         },
-        onChangePage: function(page){
+        onChangePage(page){
           this.changeCategoriesPage(page)
+        },
+        trySearch(){
+            this.loadCategories(this.keyword)
         }
     }
 

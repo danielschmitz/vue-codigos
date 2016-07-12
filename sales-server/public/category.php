@@ -8,20 +8,43 @@ $app->get('/categories', function (Request $request, Response $response) {
         $parameters = $request->getQueryParams();
         $start =(int)$parameters['start'];
         $limit =(int)$parameters['limit'];
-
+        $keyword = $parameters['q'];
 
         if (!empty($start)&&!empty($limit)){
             $start--;
-            $sql = "SELECT id,name FROM categories LIMIT :start,:limit";
-            $stmt = DB::prepare($sql);
-            $stmt->bindParam(':start', $start,PDO::PARAM_INT);
-            $stmt->bindParam(':limit', $limit,PDO::PARAM_INT);
+
+            $stmt = null;
+            if (empty($keyword)){
+                $sql = "SELECT id,name FROM categories LIMIT :start,:limit";
+                $stmt = DB::prepare($sql);
+                $stmt->bindParam(':start', $start,PDO::PARAM_INT);
+                $stmt->bindParam(':limit', $limit,PDO::PARAM_INT);
+
+            }else{
+                $keywordLike = "%".$keyword."%";
+                $sql = "SELECT id,name FROM categories WHERE name LIKE :keyword LIMIT :start,:limit";
+                $stmt = DB::prepare($sql);
+                $stmt->bindParam(':start', $start,PDO::PARAM_INT);
+                $stmt->bindParam(':limit', $limit,PDO::PARAM_INT);
+                 $stmt->bindParam(':keyword', $keywordLike);
+            }
             $stmt->execute();
 
-            $sqlCount =  "SELECT count(id) FROM categories";
-            $stmtCount = DB::prepare($sqlCount);
-            $stmtCount->execute();
-            $total = $stmtCount->fetchColumn();
+            $sqlCount = null;
+            $total = 0;
+            if (empty($keyword)){
+                $sqlCount =  "SELECT count(id) FROM categories";
+                $stmtCount = DB::prepare($sqlCount);
+                $stmtCount->execute();
+                $total = $stmtCount->fetchColumn();
+            }else{
+                $keywordLike = "%".$keyword."%";
+                $sqlCount =  "SELECT count(id) FROM categories WHERE name LIKE :keyword";
+                $stmtCount = DB::prepare($sqlCount);
+                $stmtCount->bindParam(':keyword', $keywordLike);
+                $stmtCount->execute();
+                $total = $stmtCount->fetchColumn();
+            }
 
              return  $response->withJson($stmt->fetchAll())->withHeader('Access-Control-Expose-Headers','x-total-count')->withHeader('x-total-count', $total);
 

@@ -36,44 +36,44 @@ export function setCategory({dispatch}, category) {
     dispatch("SET_CATEGORY", category);
 }
 
-export function saveCategory({dispatch,state}) {
+export function saveCategory({dispatch, state}) {
     dispatch("SHOW_LOADING")
 
-    this.$http.post(`${URL}/category`,state.category.selected).then(
-        response=>{
-               dispatch("SET_CATEGORY",response.json())
+    this.$http.post(`${URL}/category`, state.category.selected).then(
+        response => {
+            dispatch("SET_CATEGORY", response.json())
         },
-        error=>{
+        error => {
             dispatch("SHOW_ERROR", error.body)
         }
-    ).finally(function(){
+    ).finally(function () {
         dispatch("HIDE_LOADING")
         this.loadCategories();
     })
 
 }
 
-export function loadCategories({dispatch, state}) {
+export function loadCategories({dispatch, state},keyword) {
     dispatch('SHOW_LOADING')
 
     let start = (state.category.page * state.itens_per_page) - (state.itens_per_page - 1);
 
-    this.$http.get(`${URL}/categories?start=${start}&limit=${state.itens_per_page}`).then(
-        response=>{
-            dispatch("SET_CATEGORIES",response.json())
-            dispatch('SET_TOTAL_CATEGORIES',response.headers['x-total-count']);
+    this.$http.get(`${URL}/categories?start=${start}&limit=${state.itens_per_page}&q=${keyword}`).then(
+        response => {
+            dispatch("SET_CATEGORIES", response.json())
+            dispatch('SET_TOTAL_CATEGORIES', response.headers['x-total-count']);
         },
-        error=>{
+        error => {
             dispatch("SHOW_ERROR", error.body)
         }
-    ).finally(function(){
+    ).finally(function () {
         dispatch("HIDE_LOADING")
     })
 }
 
-export function changeCategoriesPage({dispatch, state},page) {
-      dispatch('SET_CATEGORY_PAGE',page)
-      this.loadCategories()
+export function changeCategoriesPage({dispatch, state}, page) {
+    dispatch('SET_CATEGORY_PAGE', page)
+    this.loadCategories()
 }
 
 
