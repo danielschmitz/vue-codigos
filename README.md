@@ -12,7 +12,7 @@ Ideias para futuras implementações:
 - [x] Mixins
 - [x] Criando Plugins
 - [x] Vuex
-- [ ] Validando formulários
+- [x] Validando formulários
 - [ ] Criando um sistema de vendas com Vue e Php + Slim Framework
 - [ ] Vue 2
 
