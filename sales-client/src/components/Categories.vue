@@ -100,7 +100,7 @@ export default{
              this.setCategory(category);
         },
         onChangePage(page){
-          this.changeCategoriesPage(page)
+          this.changeCategoriesPage(page,this.keyword)
         },
         trySearch(){
             this.loadCategories(this.keyword)

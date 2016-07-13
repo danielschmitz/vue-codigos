@@ -31,8 +31,17 @@
 
 </template>
 <script>
+import Vue from 'vue'
+import {getLogin} from '../vuex/getters'
 export default{
-
+      vuex:{
+      getters:  {
+          getLogin
+      }
+  },
+   ready(){
+      Vue.http.headers.common['x-access-token'] = this.getLogin.token;
+  }
 }
 </script>
 <style></style>

@@ -8,7 +8,11 @@ $app->get('/categories', function (Request $request, Response $response) {
         $parameters = $request->getQueryParams();
         $start =(int)$parameters['start'];
         $limit =(int)$parameters['limit'];
-        $keyword = $parameters['q'];
+
+        $keyword=null;
+        if (array_key_exists("q", $parameters)){
+            $keyword = $parameters['q'];
+        }
 
         if (!empty($start)&&!empty($limit)){
             $start--;
@@ -58,7 +62,7 @@ $app->get('/categories', function (Request $request, Response $response) {
 
 
 
-});
+})->add($auth);
 
 $app->post('/category', function (Request $request, Response $response) {
 

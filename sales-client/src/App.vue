@@ -37,7 +37,6 @@ export default {
   },
   created(){
       this.setLoginFromLocalStorage();
-      Vue.http.headers.common['x-access-token'] = this.getLogin.token;
   }
 }
 </script>

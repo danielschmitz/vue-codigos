@@ -22,9 +22,10 @@
     props: ["total","page","itensPerPage"],
     computed: {
       totalPages: function(){
-        return Math.round(this.total / this.itensPerPage)
+        return Math.round(this.total / this.itensPerPage)||1
       },
       showNextButton: function(){
+          console.log(this.page,this.totalPages)
        return  this.page!=this.totalPages
       },
       showPreviousButton: function(){

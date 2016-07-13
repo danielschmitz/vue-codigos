@@ -58,7 +58,12 @@ export function loadCategories({dispatch, state},keyword) {
 
     let start = (state.category.page * state.itens_per_page) - (state.itens_per_page - 1);
 
-    this.$http.get(`${URL}/categories?start=${start}&limit=${state.itens_per_page}&q=${keyword}`).then(
+    let keywordString=""
+    if (keyword!=null){
+        keywordString=`&q=${keyword}`
+    }
+
+    this.$http.get(`${URL}/categories?start=${start}&limit=${state.itens_per_page}${keywordString}`).then(
         response => {
             dispatch("SET_CATEGORIES", response.json())
             dispatch('SET_TOTAL_CATEGORIES', response.headers['x-total-count']);
@@ -71,9 +76,9 @@ export function loadCategories({dispatch, state},keyword) {
     })
 }
 
-export function changeCategoriesPage({dispatch, state}, page) {
+export function changeCategoriesPage({dispatch, state}, page, keyword) {
     dispatch('SET_CATEGORY_PAGE', page)
-    this.loadCategories()
+    this.loadCategories(keyword)
 }
 
 
