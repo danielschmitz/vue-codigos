@@ -55,6 +55,7 @@
                         </div>
                         <button @click.prevent="trySaveCategory" class="btn btn-default" :disabled="isLoading">Salvar</button>
                         <Loading></Loading>
+                          <button @click.prevent="tryDeleteCategory" class="btn btn-default pull-right" :disabled="isLoading||getCategory.id==null">Apagar</button>
                     </form>
                 </div>
             </div>
@@ -63,7 +64,7 @@
     </div>
 </template>
 <script>
-import {setCategory,saveCategory,loadCategories,changeCategoriesPage} from '../vuex/actions.js'
+import {setCategory,saveCategory,loadCategories,changeCategoriesPage,deleteCategory} from '../vuex/actions.js'
 import {getCategory,getCategories,getTotalCategories,isLoading,getCategoryPage,getItensPerPage} from '../vuex/getters.js'
 import Loading from '../controls/Loading.vue'
 import Error from '../controls/Error.vue'
@@ -75,7 +76,7 @@ export default{
 		},
     vuex:{
         actions:{
-            setCategory,saveCategory,loadCategories,changeCategoriesPage
+            setCategory,saveCategory,loadCategories,changeCategoriesPage, deleteCategory
         },
         getters:{
             getCategory,isLoading,getCategories,getTotalCategories,getCategoryPage,getItensPerPage
@@ -94,7 +95,7 @@ export default{
             this.setCategory({});
         },
         trySaveCategory(){
-            this.saveCategory();
+            this.saveCategory(this.keyword);
         },
         tryEdit(category){
              this.setCategory(category);
@@ -103,7 +104,13 @@ export default{
           this.changeCategoriesPage(page,this.keyword)
         },
         trySearch(){
+            this.changeCategoriesPage(1,this.keyword)
             this.loadCategories(this.keyword)
+        },
+        tryDeleteCategory(){
+            if (confirm(`Deseja apagar "${this.getCategory.name}"s ?`)){
+                this.deleteCategory(this.keyword)
+            }
         }
     }
 

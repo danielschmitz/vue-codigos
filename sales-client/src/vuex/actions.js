@@ -36,7 +36,7 @@ export function setCategory({dispatch}, category) {
     dispatch("SET_CATEGORY", category);
 }
 
-export function saveCategory({dispatch, state}) {
+export function saveCategory({dispatch, state},keyword) {
     dispatch("SHOW_LOADING")
 
     this.$http.post(`${URL}/category`, state.category.selected).then(
@@ -48,7 +48,7 @@ export function saveCategory({dispatch, state}) {
         }
     ).finally(function () {
         dispatch("HIDE_LOADING")
-        this.loadCategories();
+        this.loadCategories(keyword);
     })
 
 }
@@ -81,6 +81,21 @@ export function changeCategoriesPage({dispatch, state}, page, keyword) {
     this.loadCategories(keyword)
 }
 
+export function deleteCategory({dispatch,state},keyword) {
+    dispatch('SHOW_LOADING')
+    this.$http.delete(`${URL}/category/${state.category.selected.id}`).then(
+        response => {
+            //clear selected
+            dispatch("SET_CATEGORY", {})
+        },
+        error => {
+            dispatch("SHOW_ERROR", error.body)
+        }
+    ).finally(function () {
+        dispatch("HIDE_LOADING")
+        this.loadCategories(keyword);
+    })
+}
 
 
 
