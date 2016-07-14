@@ -42,7 +42,7 @@ require 'login.php';
 //require 'customer.php'
 //require 'sales.php'
 require 'category.php';
-require 'supplier.php'
+require 'supplier.php';
 //require 'product.php'
 
 $app->run();

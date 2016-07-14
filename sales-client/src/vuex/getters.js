@@ -7,6 +7,10 @@ export function isLogged(state){
   return state.login.token!=null
 }
 
+export function itensPerPage(state){
+  return state.itens_per_page
+}
+
 export function isLoading(state){
   return state.loading
 }
