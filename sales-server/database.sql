@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS `sales`.`Users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
-  `login` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `lastLogin` DATETIME NULL,
   `lastIp` VARCHAR(45) NULL,
