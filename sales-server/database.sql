@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS `sales`.`Suppliers` ;
 CREATE TABLE IF NOT EXISTS `sales`.`Suppliers` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
-  `Address` BLOB NULL,
+  `address` BLOB NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
