@@ -22,7 +22,7 @@
     props: ["total","page","itensPerPage"],
     computed: {
       totalPages: function(){
-        return Math.round(this.total / this.itensPerPage)||1
+        return Math.ceil(this.total / this.itensPerPage)||1
       },
       showNextButton: function(){
        return  this.page!=this.totalPages
