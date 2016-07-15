@@ -1,5 +1,4 @@
 <template>
-
   <div class="panel panel-default">
     <div class="panel-heading">
       <div class="row">
@@ -137,7 +136,18 @@
     },
     deleteSupplier(){
       if (confirm(`Deseja apagar "${this.supplier.name}"s ?`)){
-
+          this.showLoading()
+          let t = this;
+          this.$http.delete(`${URL}/supplier/${this.supplier.id}`).then(response => {
+            t.supplier={}
+          },
+          error => {
+             t.setError(error.body)
+          }
+          ).finally(function () {
+            t.hideLoading()
+            this.loadSuppliers();
+          })
       }
     },
     loadSuppliers(){
