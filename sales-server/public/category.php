@@ -19,14 +19,14 @@ $app->get('/categories', function (Request $request, Response $response) {
 
     $stmt = null;
     if (empty($keyword)){
-      $sql = "SELECT id,name FROM categories LIMIT :start,:limit";
+      $sql = "SELECT id,name FROM Categories LIMIT :start,:limit";
       $stmt = DB::prepare($sql);
       $stmt->bindParam(':start', $start,PDO::PARAM_INT);
       $stmt->bindParam(':limit', $limit,PDO::PARAM_INT);
 
     }else{
       $keywordLike = "%".$keyword."%";
-      $sql = "SELECT id,name FROM categories WHERE name LIKE :keyword LIMIT :start,:limit";
+      $sql = "SELECT id,name FROM Categories WHERE name LIKE :keyword LIMIT :start,:limit";
       $stmt = DB::prepare($sql);
       $stmt->bindParam(':start', $start,PDO::PARAM_INT);
       $stmt->bindParam(':limit', $limit,PDO::PARAM_INT);
@@ -37,13 +37,13 @@ $app->get('/categories', function (Request $request, Response $response) {
     $sqlCount = null;
     $total = 0;
     if (empty($keyword)){
-      $sqlCount =  "SELECT count(id) FROM categories";
+      $sqlCount =  "SELECT count(id) FROM Categories";
       $stmtCount = DB::prepare($sqlCount);
       $stmtCount->execute();
       $total = $stmtCount->fetchColumn();
     }else{
       $keywordLike = "%".$keyword."%";
-      $sqlCount =  "SELECT count(id) FROM categories WHERE name LIKE :keyword";
+      $sqlCount =  "SELECT count(id) FROM Categories WHERE name LIKE :keyword";
       $stmtCount = DB::prepare($sqlCount);
       $stmtCount->bindParam(':keyword', $keywordLike);
       $stmtCount->execute();
@@ -53,7 +53,7 @@ $app->get('/categories', function (Request $request, Response $response) {
     return  $response->withJson($stmt->fetchAll())->withHeader('Access-Control-Expose-Headers','x-total-count')->withHeader('x-total-count', $total);
 
   }else{
-    $sql = "SELECT id,name FROM categories";
+    $sql = "SELECT id,name FROM Categories";
     $stmt = DB::prepare($sql);
     $stmt->execute();
 
@@ -72,7 +72,7 @@ $app->post('/category', function (Request $request, Response $response) {
 
     if (!empty($category->id)){
             //update
-      $sql = "UPDATE  categories SET name=:name WHERE id=:id";
+      $sql = "UPDATE Categories SET name=:name WHERE id=:id";
       $stmt = DB::prepare($sql);
       $stmt->bindParam(':name', $category->name);
       $stmt->bindParam(':id', $category->id,PDO::PARAM_INT);
@@ -80,7 +80,7 @@ $app->post('/category', function (Request $request, Response $response) {
       return $response->withJson($category);
     }else{
             //insert
-      $sql = "INSERT INTO categories (name) VALUES (:name)";
+      $sql = "INSERT INTO Categories (name) VALUES (:name)";
       $stmt = DB::prepare($sql);
       $stmt->bindParam(':name', $category->name);
       $stmt->execute();
@@ -100,7 +100,7 @@ $app->delete('/category/{id}', function (Request $request, Response $response) {
     $id = $request->getAttribute('id');
     if (!empty($id)){
 
-      $sql = "DELETE FROM categories WHERE id=:id";
+      $sql = "DELETE FROM Categories WHERE id=:id";
       $stmt = DB::prepare($sql);
       $stmt->bindParam(':id', $id,PDO::PARAM_INT);
       $stmt->execute();

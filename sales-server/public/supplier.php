@@ -19,14 +19,14 @@ $app->get('/suppliers', function (Request $request, Response $response) {
 
     $stmt = null;
     if (empty($keyword)){
-      $sql = "SELECT id,name,address FROM suppliers LIMIT :start,:limit";
+      $sql = "SELECT id,name,address FROM Suppliers LIMIT :start,:limit";
       $stmt = DB::prepare($sql);
       $stmt->bindParam(':start', $start,PDO::PARAM_INT);
       $stmt->bindParam(':limit', $limit,PDO::PARAM_INT);
 
     }else{
       $keywordLike = "%".$keyword."%";
-      $sql = "SELECT id,name,address FROM suppliers WHERE name LIKE :keyword LIMIT :start,:limit";
+      $sql = "SELECT id,name,address FROM Suppliers WHERE name LIKE :keyword LIMIT :start,:limit";
       $stmt = DB::prepare($sql);
       $stmt->bindParam(':start', $start,PDO::PARAM_INT);
       $stmt->bindParam(':limit', $limit,PDO::PARAM_INT);
@@ -37,13 +37,13 @@ $app->get('/suppliers', function (Request $request, Response $response) {
     $sqlCount = null;
     $total = 0;
     if (empty($keyword)){
-      $sqlCount =  "SELECT count(id) FROM suppliers";
+      $sqlCount =  "SELECT count(id) FROM Suppliers";
       $stmtCount = DB::prepare($sqlCount);
       $stmtCount->execute();
       $total = $stmtCount->fetchColumn();
     }else{
       $keywordLike = "%".$keyword."%";
-      $sqlCount =  "SELECT count(id) FROM suppliers WHERE name LIKE :keyword";
+      $sqlCount =  "SELECT count(id) FROM Suppliers WHERE name LIKE :keyword";
       $stmtCount = DB::prepare($sqlCount);
       $stmtCount->bindParam(':keyword', $keywordLike);
       $stmtCount->execute();
@@ -53,7 +53,7 @@ $app->get('/suppliers', function (Request $request, Response $response) {
     return  $response->withJson($stmt->fetchAll())->withHeader('Access-Control-Expose-Headers','x-total-count')->withHeader('x-total-count', $total);
 
   }else{
-    $sql = "SELECT id,name,address FROM suppliers";
+    $sql = "SELECT id,name,address FROM Suppliers";
     $stmt = DB::prepare($sql);
     $stmt->execute();
 
@@ -72,7 +72,7 @@ $app->post('/supplier', function (Request $request, Response $response) {
 
     if (!empty($supplier->id)){
             //update
-      $sql = "UPDATE  suppliers SET name=:name,address=:address WHERE id=:id";
+      $sql = "UPDATE Suppliers SET name=:name,address=:address WHERE id=:id";
       $stmt = DB::prepare($sql);
       $stmt->bindParam(':name', $supplier->name);
       $stmt->bindParam(':id', $supplier->id,PDO::PARAM_INT);
@@ -81,7 +81,7 @@ $app->post('/supplier', function (Request $request, Response $response) {
       return $response->withJson($supplier);
     }else{
             //insert
-      $sql = "INSERT INTO suppliers (name,address) VALUES (:name,:address)";
+      $sql = "INSERT INTO Suppliers (name,address) VALUES (:name,:address)";
       $stmt = DB::prepare($sql);
       $stmt->bindParam(':name', $supplier->name);
       $stmt->bindParam(':address', $supplier->address,PDO::PARAM_LOB);
@@ -102,7 +102,7 @@ $app->delete('/supplier/{id}', function (Request $request, Response $response) {
     $id = $request->getAttribute('id');
     if (!empty($id)){
 
-      $sql = "DELETE FROM suppliers WHERE id=:id";
+      $sql = "DELETE FROM Suppliers WHERE id=:id";
       $stmt = DB::prepare($sql);
       $stmt->bindParam(':id', $id,PDO::PARAM_INT);
       $stmt->execute();

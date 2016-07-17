@@ -21,7 +21,7 @@ $app->post('/login', function (Request $request, Response $response) {
 				throw new \Exception("Name empty...");
 			}
 			//Verifica se o email já está cadastrado
-			$sql = "SELECT id FROM users WHERE email=:email";
+			$sql = "SELECT id FROM Users WHERE email=:email";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam("email",$user->email);
 			$stmt->execute();
@@ -32,7 +32,7 @@ $app->post('/login', function (Request $request, Response $response) {
 				$isCustomer = $user->role=="Customer";
 				$password = md5($user->password);
 
-				$sql = "INSERT INTO users (name,email,password,isEmployee,isCustomer) VALUES (:name,:email,:password,:isEmployee,:isCustomer)";
+				$sql = "INSERT INTO Users (name,email,password,isEmployee,isCustomer) VALUES (:name,:email,:password,:isEmployee,:isCustomer)";
 				$stmt = DB::prepare($sql);
 				$stmt->bindParam(':name', $user->name);
 				$stmt->bindParam(':email', $user->email);
@@ -68,7 +68,7 @@ $app->post('/login', function (Request $request, Response $response) {
 		else{
 			//Tenta logar
 			$password = md5($user->password);
-			$sql = "SELECT * FROM users WHERE email=:email and password=:password";
+			$sql = "SELECT * FROM Users WHERE email=:email and password=:password";
 			$stmt = DB::prepare($sql);
 			$stmt->bindParam("email",$user->email);
 			$stmt->bindParam("password",$password);
