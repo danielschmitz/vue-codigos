@@ -7,6 +7,7 @@ $app->get('/', function (Request $request, Response $response) {
     return $response;
 })->add($auth);
 
+/*
 $app->get('/users', function (Request $request, Response $response) {
 
     $stmt =  DB::prepare("SELECT * from Users");
@@ -14,6 +15,7 @@ $app->get('/users', function (Request $request, Response $response) {
     return $response->withJson($stmt->fetchAll());
 
 });
+
 
 $app->get('/databases', function (Request $request, Response $response) {
 
@@ -25,3 +27,4 @@ $app->get('/databases', function (Request $request, Response $response) {
 
     return $response;
 });
+*/
