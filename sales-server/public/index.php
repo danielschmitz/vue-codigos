@@ -43,6 +43,6 @@ require 'login.php';
 //require 'sales.php'
 require 'category.php';
 require 'supplier.php';
-//require 'product.php'
+require 'product.php';
 
 $app->run();
