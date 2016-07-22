@@ -6,9 +6,13 @@ $app->get('/categories', function (Request $request, Response $response) {
 
   $sql = "";
   $parameters = $request->getQueryParams();
-  $start =(int)$parameters['start'];
-  $limit =(int)$parameters['limit'];
 
+  if (array_key_exists("start", $parameters)){
+  $start =(int)$parameters['start'];
+  }
+  if (array_key_exists("limit", $parameters)){
+  $limit =(int)$parameters['limit'];
+  }
   $keyword=null;
   if (array_key_exists("q", $parameters)){
     $keyword = $parameters['q'];

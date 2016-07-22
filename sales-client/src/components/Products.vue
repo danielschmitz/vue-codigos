@@ -60,11 +60,47 @@
       <Error></Error>
       <validator name="validateForm">
         <form>
-          <div class="form-group">
-            <label for="name">Id</label>
-            <input type="input" class="form-control" id="id" placeholder="id" v-model="product.id" readonly>
+
+          <div class="row">
+
+            <div class="form-group col-xs-12 col-sm-4">
+              <label for="id">Id</label>
+              <input type="input" class="form-control" id="id" placeholder="id" v-model="product.id" readonly>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-8">
+              <label for="code">Código</label>
+              <input type="input" class="form-control" id="code" placeholder="id" v-model="product.code">
+            </div>
+
+          </div>    
+
+          <div class="row">
+
+            <div class="form-group col-xs-12 col-sm-6">
+              <label for="idCatgory">Categoria</label>
+              <select id="idCategory" class="form-control">
+               <option v-for="category in categories">
+                {{category.name}}
+               </option>
+              </select>
+              {{categories|json}}
+
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+             <label for="idSupplier">Fornecedor</label>
+              <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+
           </div>
-          
+
           <div class="form-group">
             <label for="name">Nome</label>
             <input type="input" class="form-control" id="name" placeholder="Nome" v-model="product.name" v-validate:name="{ required: true, minlength: 2 }">
@@ -75,28 +111,55 @@
             </div>
           </div>
 
-               <div class="form-group">
-            <label for="name">Nome</label>
-            <input type="input" class="form-control" id="name" placeholder="Nome" v-model="product.name" v-validate:name="{ required: true, minlength: 2 }">
-            <div v-show="$validateForm.invalid">
-              <span class="label label-info" v-if="$validateForm.name.required">Campo requerido</span>
-              &nbsp;
-              <span class="label label-info" v-if="$validateForm.name.minlength">Mínimo 2 caracteres</span>
+          <div class="row">
+
+            <div class="form-group col-xs-12 col-sm-6">
+              <label for="quantity">Quantidade em estoque</label>
+              <input type="input" class="form-control" id="quantity" placeholder="Quantidade" v-model="product.quantity">
             </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+              <label for="minQuantity">Quantidade Mínima</label>
+              <input type="input" class="form-control" id="minQuantity" placeholder="Quantidade Mínima" v-model="product.minQuantity">
+            </div>
+
           </div>
 
 
+          <div class="row">
+
+            <div class="form-group col-xs-12 col-sm-6">
+              <label for="price">Preço</label>
+              <input type="input" class="form-control" id="price" placeholder="Preço" v-model="product.price">
+            </div>
+
+            <div class="col-xs-12 col-sm-6">
+             <div class="checkbox">
+              <label>
+                <input type="checkbox" v-model="product.active">
+                Ativo?
+              </label>
+            </div>
+          </div>
+
+        </div>
 
 
-        
-        </form>
-      </validator>
-    </div>
-    <div class="modal-footer">
-      <button @click.prevent="saveProduct" class="btn btn-default" :disabled="isLoading||$validateForm.invalid" >Salvar</button>
-      <Loading></Loading>
-    </div>
-  </div><!-- /.modal-content -->
+        <div class="row">
+         <div class="form-group col-xs-12">
+          <label for="description">Descrição</label>
+          <textarea class="form-control" rows="5" id="description" v-model="product.description"></textarea>
+        </div>
+      </div>
+
+    </form>
+  </validator>
+</div>
+<div class="modal-footer">
+  <button @click.prevent="saveProduct" class="btn btn-default" :disabled="isLoading||$validateForm.invalid" >Salvar</button>
+  <Loading></Loading>
+</div>
+</div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
@@ -109,6 +172,9 @@
   import Error from '../controls/Error.vue'
   import Pagination from '../controls/Pagination.vue'
   import {URL} from '../config.js'
+
+  //services
+  import CategoryService from '../services/Category.js'
 
   export default{
     components: {
@@ -124,12 +190,37 @@
   },
   created(){
     this.loadProducts(this.keyword)
+
+     CategoryService.getAll().then(
+      result=>{
+        this.$set('categories',result.json())
+      },
+      error=>{
+        console.log(error)
+      })
+
+  },
+  ready(){
+    //temp
+    $('#productModal').modal('show')
   },
   data(){
     return{
       keyword:"",
       products: [],
-      product: {},
+      categories: [],
+      product: {
+        id:null,
+        idCategory: null,
+        idSupplier: null,
+        code:null,
+        name:null,
+        quantity: null,
+        minQuantity: null,
+        price: null,
+        description: null,
+        active: null
+      },
       total: 1,
       page: 1
     }
