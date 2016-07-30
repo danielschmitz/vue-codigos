@@ -46,7 +46,7 @@
   </div>
 </div>
 
-<!-- MOdal new/edit -->
+<!-- Modal new/edit -->
 
 <div id="productModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
@@ -193,6 +193,7 @@
 
      CategoryService.getAll().then(
       result=>{
+        console.log("categories",result.json)
         this.$set('categories',result.json())
       },
       error=>{
