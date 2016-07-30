@@ -23,39 +23,39 @@ export default new Vuex.Store({
         }
     },
     mutations: {
-        SET_LOGIN(store, login) {
-            store.login = login
-            localStorage.setItem("login", JSON.stringify(store.login));
+        SET_LOGIN(state, login) {
+            state.login = login
+            localStorage.setItem("login", JSON.stringify(state.login));
         },
-        SHOW_LOADING(store) {
-            store.loading = true;
+        SHOW_LOADING(state) {
+            state.loading = true;
         },
-        HIDE_LOADING(store) {
-            store.loading = false;
+        HIDE_LOADING(state) {
+            state.loading = false;
         },
-        SHOW_ERROR(store, msg) {
-            store.error.message = msg || "Network error";
+        SHOW_ERROR(state, msg) {
+            state.error.message = msg || "Network error";
             setTimeout(function () {
-                store.error.message = ""
+                state.error.message = ""
             }, 5000)
         },
-        HIDE_ERROR(store) {
-            store.error.message = "";
+        HIDE_ERROR(state) {
+            state.error.message = "";
         },
-        SET_CATEGORIES(store, categories) {
-            store.category.list = categories;
+        SET_CATEGORIES(state, categories) {
+            state.category.list = categories;
         },
-        SET_CATEGORY(store, category) {
-            store.category.selected = category;
+        SET_CATEGORY(state, category) {
+            state.category.selected = category;
         },
-        SET_CATEGORY_PAGE(store, page) {
-            store.category.page = page;
+        SET_CATEGORY_PAGE(state, page) {
+            state.category.page = page;
         },
-        SET_TOTAL_CATEGORIES(store, total) {
-            store.category.total = total;
+        SET_TOTAL_CATEGORIES(state, total) {
+            state.category.total = total;
         },
-        SET_PAGE_CATEGORY(store, page) {
-            store.category.page = page;
+        SET_PAGE_CATEGORY(state, page) {
+            state.category.page = page;
         }
     }
 })
