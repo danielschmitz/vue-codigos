@@ -57,7 +57,10 @@
       <h4 class="modal-title">{{product.id==null?'Novo':'Editar'}} Produto</h4>
     </div>
     <div class="modal-body">
-      <Error></Error>
+      
+    <Error></Error>
+  
+
       <validator name="validateForm">
         <form>
 
@@ -84,18 +87,14 @@
                 {{category.name}}
                </option>
               </select>
-              {{categories|json}}
-
             </div>
 
             <div class="form-group col-xs-12 col-sm-6">
              <label for="idSupplier">Fornecedor</label>
-              <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+               <select id="idSupplier" class="form-control">
+               <option v-for="supplier in suppliers">
+                {{supplier.name}}
+               </option>
               </select>
             </div>
 
@@ -115,12 +114,12 @@
 
             <div class="form-group col-xs-12 col-sm-6">
               <label for="quantity">Quantidade em estoque</label>
-              <input type="input" class="form-control" id="quantity" placeholder="Quantidade" v-model="product.quantity">
+              <input type="number" class="form-control" id="quantity" placeholder="Quantidade" v-model="product.quantity" min="0">
             </div>
 
             <div class="form-group col-xs-12 col-sm-6">
               <label for="minQuantity">Quantidade Mínima</label>
-              <input type="input" class="form-control" id="minQuantity" placeholder="Quantidade Mínima" v-model="product.minQuantity">
+              <input type="number" class="form-control" id="minQuantity" placeholder="Quantidade Mínima" v-model="product.minQuantity" min="1" >
             </div>
 
           </div>
@@ -156,8 +155,9 @@
   </validator>
 </div>
 <div class="modal-footer">
+ <Loading></Loading>
   <button @click.prevent="saveProduct" class="btn btn-default" :disabled="isLoading||$validateForm.invalid" >Salvar</button>
-  <Loading></Loading>
+ 
 </div>
 </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
@@ -169,12 +169,13 @@
   import {isLoading,itensPerPage} from '../vuex/getters.js'
   import {showLoading,hideLoading,setError} from '../vuex/actions.js'
   import Loading from '../controls/Loading.vue'
-  import Error from '../controls/Error.vue'
   import Pagination from '../controls/Pagination.vue'
+  import Error from '../controls/Error.vue'
   import {URL} from '../config.js'
 
   //services
   import CategoryService from '../services/Category.js'
+  import SupplierService from '../services/Supplier.js'
 
   export default{
     components: {
@@ -193,8 +194,15 @@
 
      CategoryService.getAll().then(
       result=>{
-        console.log("categories",result.json)
         this.$set('categories',result.json())
+      },
+      error=>{
+        console.log(error)
+      })
+
+     SupplierService.getAll().then(
+      result=>{
+        this.$set('suppliers',result.json())
       },
       error=>{
         console.log(error)
@@ -204,20 +212,23 @@
   ready(){
     //temp
     $('#productModal').modal('show')
+
   },
   data(){
     return{
       keyword:"",
       products: [],
       categories: [],
+      suppliers: [],
+      errorMessage: "",
       product: {
         id:null,
         idCategory: null,
         idSupplier: null,
         code:null,
         name:null,
-        quantity: null,
-        minQuantity: null,
+        quantity: 0,
+        minQuantity: 1,
         price: null,
         description: null,
         active: null
@@ -232,19 +243,18 @@
       $('#productModal').modal('show')
     },
     saveProduct(){
-      this.showLoading();
-      let t = this;
-      this.$http.post(`${URL}/product`, this.product).then(response =>
-      {
-        t.product = response.json()
-      },
-      error => {
-        t.setError(error.body)
+
+      const onResponse = r => this.$set('product',r.json())
+      const onError = e => this.setError(e.body)
+      const onFinally = () => { 
+        this.hideLoading()
+        this.loadProducts() 
       }
-      ).finally(function () {
-        t.hideLoading();
-        t.loadProducts();
-      })
+
+      this.showLoading()
+      this.$http.post(`${URL}/product`, this.product)
+        .then(onResponse,onError)
+        .finally(onFinally)
     },
     edit(product){
       this.product=product
@@ -260,16 +270,15 @@
     deleteProduct(){
       if (confirm(`Deseja apagar "${this.product.name}"s ?`)){
         this.showLoading()
-        let t = this;
         this.$http.delete(`${URL}/product/${this.product.id}`).then(response => {
-          t.product={}
+          this.$set('product',{})
         },
         error => {
-         t.setError(error.body)
+         console.error(error)
        }
        ).finally(function () {
-        t.hideLoading()
-        this.loadProducts();
+        this.hideLoading()
+        this.loadProducts()
       })
      }
    },
@@ -280,21 +289,18 @@
     if (this.keyword!=""){
       keywordString=`&q=${this.keyword}`
     }
-    let t = this;
     this.$http.get(`${URL}/products?start=${start}&limit=${this.itensPerPage}${keywordString}`).then(
       response => {
-        t.products = response.json()
-        t.total= response.headers['x-total-count']
+        this.$set('products',response.json())
+        this.$set('total',response.headers['x-total-count'])
       },
       error => {
-        t.setError(error.body)
+        console.error(error)
       }
       ).finally(function () {
-        t.hideLoading();
+        this.hideLoading();
       })
     }
   }
-
-
 }
 </script>
