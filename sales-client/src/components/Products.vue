@@ -255,6 +255,7 @@
       this.$http.post(`${URL}/product`, this.product)
         .then(onResponse,onError)
         .finally(onFinally)
+        
     },
     edit(product){
       this.product=product
@@ -268,38 +269,41 @@
       this.loadProducts()
     },
     deleteProduct(){
-      if (confirm(`Deseja apagar "${this.product.name}"s ?`)){
-        this.showLoading()
-        this.$http.delete(`${URL}/product/${this.product.id}`).then(response => {
-          this.$set('product',{})
-        },
-        error => {
-         console.error(error)
-       }
-       ).finally(function () {
+
+      const onResponse = r => this.$set('product',{})
+      const onError = e => this.setError(e.body)
+      const onFinally = () => {
         this.hideLoading()
         this.loadProducts()
-      })
+      }
+
+      if (confirm(`Deseja apagar "${this.product.name}"s ?`)){
+        this.showLoading()
+        this.$http.delete(`${URL}/product/${this.product.id}`)
+          .then(onResponse,onError)
+          .finally(onFinally)
      }
    },
    loadProducts(){
+
+     const onResponse = r => {
+        this.$set('products',r.json())
+        this.$set('total',r.headers['x-total-count'])
+      }
+      const onError = e => this.setError(e.body)
+      const onFinally = () => {
+        this.hideLoading()
+      }
+
     this.showLoading();
     let start = (this.page * this.itensPerPage) - (this.itensPerPage - 1);
     let keywordString=""
     if (this.keyword!=""){
       keywordString=`&q=${this.keyword}`
     }
-    this.$http.get(`${URL}/products?start=${start}&limit=${this.itensPerPage}${keywordString}`).then(
-      response => {
-        this.$set('products',response.json())
-        this.$set('total',response.headers['x-total-count'])
-      },
-      error => {
-        console.error(error)
-      }
-      ).finally(function () {
-        this.hideLoading();
-      })
+    this.$http.get(`${URL}/products?start=${start}&limit=${this.itensPerPage}${keywordString}`)
+      .then(onResponse,onError)
+      .finally(onFinally)
     }
   }
 }
