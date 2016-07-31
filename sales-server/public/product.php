@@ -60,15 +60,15 @@ $app->get('/products', function (Request $request, Response $response) {
     return  $response->withJson($stmt->fetchAll());
   }
 
-
-
 })->add($auth);
 
 $app->post('/product', function (Request $request, Response $response) {
 
   try{
-
+    
     $product = (object)$request->getParsedBody();
+    
+    $product->price = DB::decimalToMySql($product->price);
 
     if (!empty($product->id)){
             //update
@@ -80,9 +80,18 @@ $app->post('/product', function (Request $request, Response $response) {
       return $response->withJson($product);
     }else{
             //insert
-      $sql = "INSERT INTO Products (name) VALUES (:name)";
+      $sql = "INSERT INTO Products (name,idCategory,idSupplier,quantity,minQuantity,price,description,active,code) VALUES (:name,:idCategory,:idSupplier,:quantity,:minQuantity,:price,:description,:active,:code)";
       $stmt = DB::prepare($sql);
       $stmt->bindParam(':name', $product->name);
+      $stmt->bindParam(':idCategory', $product->idCategory,PDO::PARAM_INT);
+      $stmt->bindParam(':idSupplier', $product->idSupplier,PDO::PARAM_INT);
+      $stmt->bindParam(':quantity', $product->quantity,PDO::PARAM_INT);
+      $stmt->bindParam(':minQuantity', $product->miNQuantity,PDO::PARAM_INT);
+      $stmt->bindParam(':price', $product->price);
+      $stmt->bindParam(':description', $product->description,PDO::PARAM_LOB);
+      $stmt->bindParam(':active', $product->active,PDO::PARAM_INT);
+      $stmt->bindParam(':code', $product->code);
+      
       $stmt->execute();
       $product->id = DB::lastInsertId();
       return $response->withJson($product);
