@@ -82,8 +82,8 @@
 
             <div class="form-group col-xs-12 col-sm-6">
               <label for="idCatgory">Categoria</label>
-              <select id="idCategory" class="form-control">
-               <option v-for="category in categories">
+              <select id="idCategory" class="form-control" v-model="product.idCategory">
+               <option v-for="category in categories" value="{{category.id}}">
                 {{category.name}}
                </option>
               </select>
@@ -91,8 +91,8 @@
 
             <div class="form-group col-xs-12 col-sm-6">
              <label for="idSupplier">Fornecedor</label>
-               <select id="idSupplier" class="form-control">
-               <option v-for="supplier in suppliers">
+               <select id="idSupplier" class="form-control" v-model="product.idSupplier">
+               <option v-for="supplier in suppliers" value="{{supplier.id}}">
                 {{supplier.name}}
                </option>
               </select>
@@ -253,7 +253,7 @@
       }
 
       this.showLoading()
-      ConfigService.save(this.product)
+      ProductService.save(this.product)
         .then(onResponse,onError)
         .finally(onFinally)
         
@@ -301,7 +301,6 @@
       .then(onResponse,onError)
       .finally(onFinally)
     }
-
   }
 }
 </script>
