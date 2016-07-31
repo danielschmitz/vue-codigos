@@ -212,7 +212,7 @@
   },
   ready(){
     //temp
-    $('#productModal').modal('show')
+    //$('#productModal').modal('show')
 
   },
   data(){
@@ -245,7 +245,10 @@
     },
     saveProduct(){
 
-      const onResponse = r => this.$set('product',r.json())
+      const onResponse = r => {
+        this.$set('product',{})
+        $('#productModal').modal('hide')
+      }
       const onError = e => this.setError(e.body)
       const onFinally = () => { 
         this.hideLoading()
@@ -260,6 +263,7 @@
     },
     edit(product){
       this.product=product
+      $('#productModal').modal('show')
     },
     onChangePage(page){
       this.page = page
