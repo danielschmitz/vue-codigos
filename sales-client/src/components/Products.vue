@@ -176,6 +176,7 @@
   //services
   import CategoryService from '../services/Category.js'
   import SupplierService from '../services/Supplier.js'
+  import ProductService from '../services/Product.js'
 
   export default{
     components: {
@@ -252,7 +253,7 @@
       }
 
       this.showLoading()
-      this.$http.post(`${URL}/product`, this.product)
+      ConfigService.save(this.product)
         .then(onResponse,onError)
         .finally(onFinally)
         
@@ -262,7 +263,7 @@
     },
     onChangePage(page){
       this.page = page
-      this.loadProducts();
+      this.loadProducts()
     },
     search(){
       this.page = 1
@@ -279,7 +280,7 @@
 
       if (confirm(`Deseja apagar "${this.product.name}"s ?`)){
         this.showLoading()
-        this.$http.delete(`${URL}/product/${this.product.id}`)
+        ConfigService.delete(this.product.id)
           .then(onResponse,onError)
           .finally(onFinally)
      }
@@ -295,16 +296,12 @@
         this.hideLoading()
       }
 
-    this.showLoading();
-    let start = (this.page * this.itensPerPage) - (this.itensPerPage - 1);
-    let keywordString=""
-    if (this.keyword!=""){
-      keywordString=`&q=${this.keyword}`
-    }
-    this.$http.get(`${URL}/products?start=${start}&limit=${this.itensPerPage}${keywordString}`)
+    this.showLoading()
+    ProductService.getAll(this.page,this.itensPerPage,this.keyword)
       .then(onResponse,onError)
       .finally(onFinally)
     }
+
   }
 }
 </script>
