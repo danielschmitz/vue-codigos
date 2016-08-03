@@ -6,8 +6,12 @@ $app->get('/suppliers', function (Request $request, Response $response) {
 
   $sql = "";
   $parameters = $request->getQueryParams();
+  if (array_key_exists("start", $parameters)){
   $start =(int)$parameters['start'];
+}
+if (array_key_exists("limit", $parameters)){
   $limit =(int)$parameters['limit'];
+}
 
   $keyword=null;
   if (array_key_exists("q", $parameters)){

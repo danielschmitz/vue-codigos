@@ -57,9 +57,9 @@
       <h4 class="modal-title">{{product.id==null?'Novo':'Editar'}} Produto</h4>
     </div>
     <div class="modal-body">
-      
+
     <Error></Error>
-  
+
 
       <validator name="validateForm">
         <form>
@@ -76,7 +76,7 @@
               <input type="input" class="form-control" id="code" placeholder="id" v-model="product.code">
             </div>
 
-          </div>    
+          </div>
 
           <div class="row">
 
@@ -157,7 +157,7 @@
 <div class="modal-footer">
  <Loading></Loading>
   <button @click.prevent="saveProduct" class="btn btn-default" :disabled="isLoading||$validateForm.invalid" >Salvar</button>
- 
+
 </div>
 </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
@@ -176,7 +176,7 @@
   //services
   import CategoryService from '../services/Category.js'
   import SupplierService from '../services/Supplier.js'
-  import ProductService from '../services/Product.js'
+import ProductService from '../services/Product.js'
 
   export default{
     components: {
@@ -250,19 +250,19 @@
         $('#productModal').modal('hide')
       }
       const onError = e => this.setError(e.body)
-      const onFinally = () => { 
+      const onFinally = () => {
         this.hideLoading()
-        this.loadProducts() 
+        this.loadProducts()
       }
 
       this.showLoading()
       ProductService.save(this.product)
         .then(onResponse,onError)
         .finally(onFinally)
-        
+
     },
     edit(product){
-      this.product=product
+      this.product = product
       $('#productModal').modal('show')
     },
     onChangePage(page){
@@ -290,7 +290,6 @@
      }
    },
    loadProducts(){
-
      const onResponse = r => {
         this.$set('products',r.json())
         this.$set('total',r.headers['x-total-count'])
